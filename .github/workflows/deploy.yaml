@@ -24,8 +24,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        pip install nbdev torch  # Ensure nbdev and torch are installed
+        pip install -r requirements.txt
+        pip install nbdev torch
+
+    - name: Run nbdev commands
+      run: |
+        nbdev_clean
+        nbdev_export
+        nbdev_test  # Run the tests after installing dependencies
 
     - name: Deploy to GitHub Pages
       uses: fastai/workflows/quarto-ghp@master
